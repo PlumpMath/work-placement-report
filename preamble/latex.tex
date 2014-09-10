@@ -1,0 +1,60 @@
+\usepackage[stable]{footmisc}
+\usepackage{minitoc}
+\usepackage{lineno}
+\modulolinenumbers[5]
+\usepackage{svg}
+\usepackage{amsmath,lscape,euro}
+%\graphicspath{ {img/} }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Handle summaries, toc and so on
+\renewcommand{\mtctitle}{Sommaire}
+%
+\setcounter{minitocdepth}{2}
+\setcounter{tocdepth}{6}
+%
+\usepackage{shorttoc} % For the summary at the very begenning. Short toc must be put before regular toc.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% pour le chapitre premier. Les autres doivent être 2, 3…
+% A changer pour les annexes
+\usepackage{fmtcount}
+%\makeatletter
+%\patchcmd{\@makechapterhead}{\thechapter}{\ordinalstring{chapter}}{}{}
+%\patchcmd{\chaptermark}{\thechapter}{\ORDINALstring{chapter}}{}{}
+%\makeatother
+
+% Puisque open right, il peut être intéressant de savoir ça :
+\usepackage{nextpage} % provides commands \cleartooddpage and \cleartoevenpage
+
+\usepackage[ampersand]{easylist}
+
+\usepackage[final]{pdfpages} % Provides \includepdf
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This block is for handling display allowance and files-system-based report structure
+% Known issues: file must have no blanks in their names and must end last line by a line break \n.
+\usepackage{etoolbox} % Allow to use toggle
+\newtoggle{isReport}
+\IfFileExists{./author.private.tex}{
+\toggletrue{isReport}
+}{
+\togglefalse{isReport}
+}
+% In the following statements we assume `find` sorts files strictly lexicographically.
+\makeatletter
+\def\app@exe{\immediate\write18}
+\def\inputAllFiles#1{%
+  \app@exe{find #1/*.tex -maxdepth 1 -type f | xargs cat >> #1/\jobname.tmp}%
+  % if report -maxdepth ommited
+  \InputIfFileExists{#1/\jobname.tmp}{}%
+  \AtEndDocument{\app@exe{rm -f #1/\jobname.tmp}}}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This block deals with pages and paper.
+\iftoggle{isReport}{
+\usepackage[hcentering,bindingoffset=14mm]{geometry}
+}{
+\usepackage{geometry}
+}
+%
+\usepackage{emptypage} % Pour de vraies pages blanches entre deux chapitres.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

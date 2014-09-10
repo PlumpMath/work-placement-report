@@ -1,0 +1,62 @@
+\chapter*{A propos de ce document}
+
+\section*{Confidentialité, propriété et licence}
+L'intégralité de ce rapport est propriété d'Orange. Son contenu ne sera donc pas divulgué sur internet ou ailleurs. Dans le même souci de confidentialité, les membres du cercle Parnasse n'y verront leur nom publié.
+
+Les fichiers \LaTeX{} utilisés par ce rapport sont en libre consultation dans ce \href{https://github.com/piotr2b/work-placement-report}{dépôt github}\footnote{\url{https://github.com/piotr2b/work-placement-report}} sous licence \href{https://creativecommons.org/licenses/by-nc/4.0/deed.fr}{\textbf{©~\textsc{by-nc}}} où je détaille quelques points \TeX{}niques. Le contenu de ce rapport n'y figure pas.
+
+%\section*{Plagiat}
+%Le plagiat, action de plagier consiste à :\begin{quote}
+%Emprunter à un ouvrage original, et par métonymie à son auteur, des éléments, des fragments dont on s'attribue abusivement la paternité en les reproduisant, avec plus ou moins de fidélité, dans une œuvre que l'on présente comme personnelle.
+%\end{quote}
+%Copier un autre rapport ne serait pas élégant ni ne me serait utile puisqu'un stage reste personnel. Les sources sont indiquées plus bas.
+
+\section*{Bibliographie}
+Les informations à propos d'Orange, de Parnasse ou les informations techniques sont tirées des documentations partagées d'Orange, de Parnasse et de l'équipe Process \& \textsc{si} et de discussions avec des employés de Parnasse.
+
+\section*{Parcours}
+Un sommaire est disponible en début de document et une table des matières détaillée à la fin. Les références de figures ou de pages sont cliquables.
+
+\iftoggle{isReport}{}{
+\section*{\LaTeX{}}
+\subsection*{Typographie}
+La composition de ce document est confiée au compilateur xe\LaTeX{}. Contrairement à l'usage, la marge intérieure a été définie plus large que l'extérieure pour faciliter la reliure et la lecture de ce rapport. Les tableaux ont été entrés dans \LaTeX{} grace au très utile \url{http://www.tablesgenerator.com/}. Les fontes Junicode et 教育部標準楷書 pour les sinogrammes ont été utilisées dans ce document.
+
+Junicode (pour Junius-Unicode) est une fonte unicode libre créée par le Britannique Peter S. Baker. Cette fonte contient une grande quantité de ligatures et caractères spéciaux dont
+\setmainfont[
+Ligatures={Common, Rare, TeX, Historical},
+Numbers=OldStyle,
+Contextuals=Swash,
+Style={Historic}, % Swash
+Numbers=OldStyle
+]{Junicode}%
+av, AY, bg, ct, ey, gd, qv, sp, ss, st, tz, YY%
+\setmainfont[
+Ligatures={Common, Rare, TeX},
+Numbers=OldStyle
+]
+{Junicode}.
+
+教育部標準楷書 est une fonte créée par le ministère de l’éducation de Taïwan. Elle présente les caractères dans le style régulier qui est le plus courant.% Les caractères chinois peuvent aussi s’écrire en styles sigillaire, clérical, semi-cursif ou cursif.
+
+\subsubsection*{Structure}
+Deux mécanismes sont utilisés pour la structure de ce document : les parties peuvent être importées explicitement ou automatiquement.
+\paragraph*{Imports explicites}
+Le paquet \texttt{import} fournit les commandes \texttt{\textbackslash{}import} et \texttt{\textbackslash{}subimport} qui sont utilisées ici avec un système de chemins relatifs. La racine (\texttt{./}) de ces chemins est fixée au répertoire contenant le document maître. Les imports explicites ont été utilisés dans le document maître pour permettre de qualifier les parties importées avec les commandes \texttt{\textbackslash{}\{front,main,back\}matter} et \texttt{\textbackslash{}appendix}.
+
+Cette méthode d'import a quelques limitations : par exemple, inclure des fichiers \texttt{*.pdf} ou des images demande encore le chemin relatif du répertoire \texttt{../img/} et la commande \texttt{\textbackslash{}graphicspath} n'améliore pas la situation.
+
+La paquet \texttt{import} requiert l'option de compilation \texttt{-recorder}.
+\paragraph*{Imports automatiques}
+Pour les annexes, un autre système est utilisé avec la commande \texttt{\textbackslash{}inputAllFiles} qui importe tous les fichiers \texttt{*.tex} à la racine du répertoire passé en argument. On considère en utilisant cette commande que l'on est sur un système libre \textsc{gnu}/Linux et que la commande bash \texttt{ls} est disponible. Ce système est utilisé pour trier les mots du glossaire par ordre alphabétique.
+
+Ce système souffre de quelques limites. Les fichiers importés de cette manières doivent se terminer par un retour à la ligne (\texttt{\textbackslash{}n}) et leurs noms ne doivent pas contenir d'espace.
+
+Cette commande utilise l'option de compilation \texttt{--shell-escape}.
+
+\paragraph*{Figures}
+Les paquets \texttt{tikz} et \texttt{pgfplots} sont utilisées pour dessiner des graphes et des diagrammes.
+
+\subsection*{Gestion de la confidentialité}
+Parmi plusieurs systèmes possibles, il a été préféré de suffixer le nom des fichiers concernés par \texttt{.private}. L'aspect confidentiel, alors évident, peut être géré par un simple \texttt{.gitignore}.
+}
